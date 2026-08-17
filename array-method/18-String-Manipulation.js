@@ -41,3 +41,18 @@ function truncate(str, maxLength) {
   return str.slice(0, maxLength - 3) + "...";
 }
 console.log(truncate(text, 20));
+
+// Q5 - Slug generator (very common real feature — URL-friendly strings)
+const title = "  Hello World! This is  a Test_Title 123  ";
+
+// output
+// "hello-world-this-is-a-test-title-123"
+
+function slugify(title) {
+  return title
+    .trim()
+    .toLowerCase()
+    .replace(/[ _]+/g, "-")
+    .replace(/[^a-z0-9-]/g, "");
+}
+console.log(slugify(title));
