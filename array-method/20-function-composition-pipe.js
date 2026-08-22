@@ -43,7 +43,7 @@ function compose(...functions) {
 // Solution 1
 function pipe(...fns) {
   return function (value) {
-    return fns.reduceRight((acc, curr) => curr(value), value);
+    return fns.reduce((acc, curr) => curr(value), value);
   };
 }
 
