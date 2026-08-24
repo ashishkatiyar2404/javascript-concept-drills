@@ -38,8 +38,6 @@ function isObject(val) {
 function deepMerge(obj1, obj2) {
   let result = { ...obj1 };
 
-  result = { ...obj1 };
-
   for (let key in obj2) {
     if (isObject(obj2[key]) && isObject(result[key])) {
       //  order matters here while calling deepMerge again
