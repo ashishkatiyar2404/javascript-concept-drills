@@ -13,7 +13,7 @@ function moveZeros(arr) {
       positionPointer++;
     }
   }
-  for (let i = x; i < arr.length; i++) {
+  for (let i = positionPointer; i < arr.length; i++) {
     arr[i] = 0;
   }
   return arr;

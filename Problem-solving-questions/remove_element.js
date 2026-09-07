@@ -12,7 +12,7 @@ function removeElement(arr) {
       positionPointer++;
     }
   }
-  return arr.slice(0, positionPointer + 1);
+  return arr.slice(0, positionPointer);
 }
 
 console.log(removeElement(arr));
