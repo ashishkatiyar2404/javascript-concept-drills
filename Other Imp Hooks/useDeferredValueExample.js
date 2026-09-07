@@ -3,16 +3,49 @@
  *
  */
 
+import { useState, useDeferredValue, useMemo } from "react";
+
+// Simulate 50,000 products
+const allProducts = Array.from({ length: 50000 }, (_, i) => `Product ${i + 1}`);
+
+function SearchResults({ query }) {
+  // Expensive filtering — runs on every render of this component
+  const filtered = useMemo(() => {
+    if (!query) return [];
+    return allProducts.filter((p) =>
+      p.toLowerCase().includes(query.toLowerCase()),
+    );
+  }, [query]);
+
+  return (
+    <ul>
+      {filtered.slice(0, 200).map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+    </ul>
+  );
+}
+
 function Search() {
   const [query, setQuery] = useState("");
 
+  // deferredQuery can lag behind query when rendering is expensive
   const deferredQuery = useDeferredValue(query);
+
+  // Optional: know when the UI is showing stale results
+  const isStale = query !== deferredQuery;
 
   return (
     <>
-      <input value={query} onChange={(e) => setQuery(e.target.value)} />
+      <input
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search 50,000 products..."
+      />
 
-      <SearchResults query={deferredQuery} />
+      <div style={{ opacity: isStale ? 0.5 : 1 }}>
+        <SearchResults query={deferredQuery} />
+      </div>
     </>
   );
 }

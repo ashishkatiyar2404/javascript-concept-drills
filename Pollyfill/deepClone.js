@@ -23,7 +23,7 @@ const userProfile = {
 };
 
 function deepClone(obj) {
-  if (typeof obj !== "object" && obj === null) {
+  if (typeof obj !== "object" || obj === null) {
     return obj;
   }
 
@@ -32,6 +32,7 @@ function deepClone(obj) {
   for (let key in obj) {
     clone[key] = deepClone(obj[key]);
   }
+  return clone;
 }
 
 console.log(deepClone(userProfile));
